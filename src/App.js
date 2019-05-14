@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Stage, Layer } from 'react-konva';
+import URLImage from './components/URLImage';
+import Portal from './Portal.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Stage width={window.innerWidth} height={window.innerHeight}>
+        <Layer>
+          <Portal>
+            <input type="file"
+              style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                width: '200px'
+              }}
+              placeholder="DOM input from Konva nodes"
+            />
+          </Portal>
+          <URLImage src="https://sheldoncorgi.pl/wp-content/uploads/2018/11/Untitled-design-5.png" />
+        </Layer>
+      </Stage>
+    );
+  }
 }
 
 export default App;
