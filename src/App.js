@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
 import { Stage, Layer } from 'react-konva';
-import URLImage from './components/URLImage';
-import Portal from './Portal.js';
+import Portal from './utils/Portal';
+import Heart from './components/Heart'
 
 class App extends Component {
+  state = {
+    value: 'yellow'
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value
+    })
+  }
+
   render() {
     return (
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer>
           <Portal>
-            <input type="file"
+            <select
               style={{
                 position: 'absolute',
                 top: 10,
                 left: 10,
                 width: '200px'
               }}
-              placeholder="DOM input from Konva nodes"
-            />
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              <option>Yellow</option>
+              <option>Red</option>
+              <option>Pink</option>
+              <option>Orange</option>
+              <option>Blueviolet</option>
+              <option>Blue</option>
+              <option>Green</option>
+            </select>
           </Portal>
-          <URLImage src="https://sheldoncorgi.pl/wp-content/uploads/2018/11/Untitled-design-5.png" />
+          <Heart color={this.state.value}></Heart>
         </Layer>
       </Stage>
     );
