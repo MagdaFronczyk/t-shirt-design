@@ -7,8 +7,8 @@ import Transformer from './components/Transformer';
 
 class App extends Component {
   state = {
-    value: 'yellow',
-    selectedShapeName: ''
+    selectedShapeName: '',
+    hearts: []
   }
 
   handleStageMouseDown = e => {
@@ -28,8 +28,6 @@ class App extends Component {
 
     // find clicked rect by its name
     const name = e.target.name();
-    console.log(name)
-
     if (name === 'heart') {
       this.setState({
         selectedShapeName: name
@@ -41,9 +39,9 @@ class App extends Component {
     }
   };
 
-  handleChange = (event) => {
+  handleAddHeart = () => {
     this.setState({
-      value: event.target.value
+      hearts: [...this.state.hearts, 1]
     })
   }
 
@@ -65,28 +63,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <select
-          style={{
-            position: 'absolute',
-            top: 10,
-            left: 10,
-            width: '200px',
-            zIndex: '1'
-          }}
-          value={this.state.value}
-          onChange={this.handleChange}>
-          <option>Yellow</option>
-          <option>Red</option>
-          <option>Pink</option>
-          <option>Orange</option>
-          <option>Blueviolet</option>
-          <option>Blue</option>
-          <option>Green</option>
-        </select>
         <Stage width={600} height={565} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
             <URLImage src={tshirt} />
-            <Heart color={this.state.value} name='heart'></Heart>
+            {this.state.hearts.map(el =>
+              (<Heart color={this.state.value} name='heart'></Heart>)
+            )}
             <Transformer
               selectedShapeName={this.state.selectedShapeName}
             />
@@ -94,10 +76,17 @@ class App extends Component {
         </Stage>
         <button style={{
           position: 'absolute',
-          top: 40,
+          top: 10,
           left: 10,
           width: '200px'
         }} onClick={this.handleExportClick}>Download</button>
+        <button style={{
+          position: 'absolute',
+          top: 40,
+          left: 10,
+          width: '200px'
+        }} onClick={this.handleAddHeart}>Add heart</button>
+
       </div>
     );
   }
