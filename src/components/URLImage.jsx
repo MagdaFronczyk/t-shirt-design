@@ -30,7 +30,7 @@ class URLImage extends Component {
         });
         // if you keep same image object during source updates
         // you will have to update layer manually:
-        // this.imageNode.getLayer().batchDraw();
+        this.imageNode.getLayer().batchDraw();
     };
     render() {
         return (

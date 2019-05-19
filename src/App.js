@@ -4,6 +4,7 @@ import Heart from './components/Heart';
 import URLImage from './components/URLImage';
 import tshirt from './imgs/tshirt.png';
 import Transformer from './components/Transformer';
+import Drawing from './components/Draw';
 
 class App extends Component {
   state = {
@@ -28,7 +29,6 @@ class App extends Component {
 
     // find clicked shape by its name
     const name = e.target.name();
-    console.log(name, e.target, e.target.index)
     if (name === `heart${e.target.index}`) {
       this.setState({
         selectedShapeName: name
@@ -49,6 +49,7 @@ class App extends Component {
   handleExportClick = () => {
     const dataURL = this.stageRef.getStage().toDataURL();
     this.downloadURI(dataURL, "stage1.jpg");
+    console.log(this.stageRef.width() / 2)
   }
 
   downloadURI(uri, name) {
@@ -66,9 +67,10 @@ class App extends Component {
       <div>
         <Stage width={600} height={565} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
-            <URLImage src={tshirt} />
+            <URLImage src={tshirt} ref={node => { this.tshirtRef = node }} />
+            <Drawing width={600} height={565} />
             {this.state.hearts.map((el, index) =>
-              (<Heart color={this.state.value} name={`heart${index + 1}`}></Heart>)
+              (<Heart key={index} color={this.state.value} name={`heart${index + 2}`}></Heart>)
             )}
             <Transformer
               selectedShapeName={this.state.selectedShapeName}
@@ -87,7 +89,6 @@ class App extends Component {
           left: 10,
           width: '200px'
         }} onClick={this.handleAddHeart}>Add heart</button>
-
       </div>
     );
   }
