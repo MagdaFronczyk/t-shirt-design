@@ -26,9 +26,10 @@ class App extends Component {
       return;
     }
 
-    // find clicked rect by its name
+    // find clicked shape by its name
     const name = e.target.name();
-    if (name === 'heart') {
+    console.log(name, e.target, e.target.index)
+    if (name === `heart${e.target.index}`) {
       this.setState({
         selectedShapeName: name
       });
@@ -41,7 +42,7 @@ class App extends Component {
 
   handleAddHeart = () => {
     this.setState({
-      hearts: [...this.state.hearts, 1]
+      hearts: [...this.state.hearts, "<3"]
     })
   }
 
@@ -66,8 +67,8 @@ class App extends Component {
         <Stage width={600} height={565} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
             <URLImage src={tshirt} />
-            {this.state.hearts.map(el =>
-              (<Heart color={this.state.value} name='heart'></Heart>)
+            {this.state.hearts.map((el, index) =>
+              (<Heart color={this.state.value} name={`heart${index + 1}`}></Heart>)
             )}
             <Transformer
               selectedShapeName={this.state.selectedShapeName}
