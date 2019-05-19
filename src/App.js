@@ -68,9 +68,13 @@ class App extends Component {
         <Stage width={600} height={565} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
             <URLImage src={tshirt} ref={node => { this.tshirtRef = node }} />
+          </Layer>
+          <Layer>
             <Drawing width={600} height={565} />
+          </Layer>
+          <Layer>
             {this.state.hearts.map((el, index) =>
-              (<Heart key={index} color={this.state.value} name={`heart${index + 2}`}></Heart>)
+              (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
             )}
             <Transformer
               selectedShapeName={this.state.selectedShapeName}
@@ -89,7 +93,7 @@ class App extends Component {
           left: 10,
           width: '200px'
         }} onClick={this.handleAddHeart}>Add heart</button>
-      </div>
+      </div >
     );
   }
 }
