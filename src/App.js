@@ -9,7 +9,8 @@ import Drawing from './components/Draw';
 class App extends Component {
   state = {
     selectedShapeName: '',
-    hearts: []
+    hearts: [],
+    brushColor: '#E0BBE4'
   }
 
   handleStageMouseDown = e => {
@@ -62,6 +63,10 @@ class App extends Component {
     //delete link;
   }
 
+  handleBrushColorChoice = (e) => {
+    this.setState({ brushColor: e.target.value })
+  }
+
   render() {
     return (
       <div>
@@ -70,7 +75,7 @@ class App extends Component {
             <URLImage src={tshirt} ref={node => { this.tshirtRef = node }} />
           </Layer>
           <Layer>
-            <Drawing width={600} height={565} />
+            <Drawing width={600} height={565} color={this.state.brushColor} />
           </Layer>
           <Layer>
             {this.state.hearts.map((el, index) =>
@@ -93,6 +98,11 @@ class App extends Component {
           left: 10,
           width: '200px'
         }} onClick={this.handleAddHeart}>Add heart</button>
+        <select name="" id="" value={this.state.brushColor} onChange={this.handleBrushColorChoice}>
+          <option value="#E0BBE4" selected>Thistle</option>
+          <option value="#957DAD">Lavender Purple</option>
+          <option value="#D291BC">Pastel Violet</option>
+        </select>
       </div >
     );
   }

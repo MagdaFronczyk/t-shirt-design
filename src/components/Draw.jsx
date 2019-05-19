@@ -24,18 +24,21 @@ class Drawing extends Component {
         this.setState({ isDrawing: false });
     };
 
-    handleMouseMove = ({ evt }) => {
+    handleMouseMove = (e, color) => {
+        let evt = e.evt;
         const { context, isDrawing } = this.state;
-
+        console.log(evt)
         if (isDrawing) {
-            context.strokeStyle = "#df4b26";
+            context.strokeStyle = color;
             context.lineJoin = "round";
             context.lineWidth = 5;
 
             if (evt.buttons === 1) {
                 // draw
+                console.log(evt.buttons === 1)
                 context.globalCompositeOperation = "source-over";
             } else if (evt.buttons === 2) {
+                console.log(evt.buttons, evt, evt.buttons === 2)
                 // erase
                 context.globalCompositeOperation = "destination-out";
             }
@@ -64,7 +67,7 @@ class Drawing extends Component {
 
     render() {
         const { canvas } = this.state;
-        const { x, y } = this.props;
+        const { x, y, color } = this.props;
         return (
             <Image
                 image={canvas}
@@ -75,7 +78,7 @@ class Drawing extends Component {
                 y={y}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
-                onMouseMove={this.handleMouseMove}
+                onMouseMove={(e) => this.handleMouseMove(e, color)}
             />
         );
     }
