@@ -4,7 +4,9 @@ import Heart from './components/Heart';
 import URLImage from './components/URLImage';
 import tshirt from './imgs/tshirt.png';
 import Transformer from './components/Transformer';
-import Drawing from './components/Draw';
+import Drawing from './components/Drawing';
+import BrushOptions from './components/BrushOptions';
+import Button from './components/UniversalButton';
 
 class App extends Component {
   state = {
@@ -14,7 +16,7 @@ class App extends Component {
   }
 
   handleStageMouseDown = e => {
-    // clicked on stage - cler selection
+    // clicked on stage - clear selection
     if (e.target === e.target.getStage()) {
       this.setState({
         selectedShapeName: ''
@@ -49,8 +51,7 @@ class App extends Component {
 
   handleExportClick = () => {
     const dataURL = this.stageRef.getStage().toDataURL();
-    this.downloadURI(dataURL, "stage1.jpg");
-    console.log(this.stageRef.width() / 2)
+    this.downloadURI(dataURL, "tshirt.jpg");
   }
 
   downloadURI(uri, name) {
@@ -86,23 +87,9 @@ class App extends Component {
             />
           </Layer>
         </Stage>
-        <button style={{
-          position: 'absolute',
-          top: 10,
-          left: 10,
-          width: '200px'
-        }} onClick={this.handleExportClick}>Download</button>
-        <button style={{
-          position: 'absolute',
-          top: 40,
-          left: 10,
-          width: '200px'
-        }} onClick={this.handleAddHeart}>Add heart</button>
-        <select name="" id="" value={this.state.brushColor} onChange={this.handleBrushColorChoice}>
-          <option value="#E0BBE4" selected>Thistle</option>
-          <option value="#957DAD">Lavender Purple</option>
-          <option value="#D291BC">Pastel Violet</option>
-        </select>
+        <Button onClick={this.handleExportClick} text="Download" />
+        <Button onClick={this.handleAddHeart} text="Add heart" />
+        <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
       </div >
     );
   }

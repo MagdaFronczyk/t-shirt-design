@@ -33,11 +33,11 @@ class URLImage extends Component {
         this.imageNode.getLayer().batchDraw();
     };
     render() {
+        const { x, y } = this.props;
         return (
             <Image
-                crossOrigin="anonymous"
-                x={this.props.x}
-                y={this.props.y}
+                x={x}
+                y={y}
                 image={this.state.image}
                 ref={node => {
                     this.imageNode = node;
